@@ -1,0 +1,41 @@
+package com.encuentro.matrimonial.modelo;
+
+import java.util.Collection;
+
+import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@Getter
+@Setter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+@Entity
+@Table(name = "role")
+public class Role {
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Long id;
+
+	private String name;
+	@ManyToMany(mappedBy = "roles")
+	@JsonIgnore
+	private Collection<Usuario> users;
+
+	@Column(name = "detalle")
+	private String detalle;
+
+	@ManyToMany
+	@JsonIgnore
+	@JoinTable(name = "roles_privileges", joinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "privilege_id", referencedColumnName = "id"))
+	private Collection<Privilege> privileges;
+
+}
