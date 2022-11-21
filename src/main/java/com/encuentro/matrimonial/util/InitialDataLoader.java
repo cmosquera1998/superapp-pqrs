@@ -52,10 +52,10 @@ public class InitialDataLoader implements ApplicationListener<ContextRefreshedEv
 				editInfoPrivilege);
 		List<Privilege> diosesanoPrivileges = Arrays.asList(readPrivilege, writePrivilege);
 
-		createPrimerPilarIfNotFound(0L, new Date(), "10", "10", "10", "10", "10");
-		createPrimerPilarIfNotFound(0L, new Date(), "10", "10", "10", "10", "10");
-		createPrimerPilarIfNotFound(0L, new Date(), "10", "10", "10", "10", "10");
-		createPrimerPilarIfNotFound(0L, new Date(), "10", "10", "10", "10", "10");
+		createPrimerPilarIfNotFound(0L, new Date(), 10, 10, 10, 10, 10);
+		createPrimerPilarIfNotFound(0L, new Date(), 10, 10, 10, 10, 10);
+		createPrimerPilarIfNotFound(0L, new Date(), 10, 10, 10, 10, 10);
+		createPrimerPilarIfNotFound(0L, new Date(), 10, 10, 10, 10, 10);
 
 		createRoleIfNotFound("ROLE_ADMIN", adminPrivileges);
 		createRoleIfNotFound("ROLE_USUARIO", Arrays.asList(readPrivilege));
@@ -109,8 +109,8 @@ public class InitialDataLoader implements ApplicationListener<ContextRefreshedEv
 	}
 
 	@Transactional
-	private PrimerPilar createPrimerPilarIfNotFound(Long id, Date fecha, String numFDS, String numMatrinoniosVivieron,
-			String numSacerdotesVivieron, String numReligiososVivieron, String numReligiosasVivieron) {
+	private PrimerPilar createPrimerPilarIfNotFound(Long id, Date fecha, int numFDS, int numMatrinoniosVivieron,
+			int numSacerdotesVivieron, int numReligiososVivieron, int numReligiosasVivieron) {
 		PrimerPilar pilar = new PrimerPilar(id, fecha, numFDS, numMatrinoniosVivieron, numSacerdotesVivieron,
 				numReligiososVivieron, numReligiosasVivieron);
 		primerPilarRepository.save(pilar);

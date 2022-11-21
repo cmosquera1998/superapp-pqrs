@@ -15,29 +15,29 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.encuentro.matrimonial.constants.Mensaje;
 import com.encuentro.matrimonial.constants.ResourceMapping;
-import com.encuentro.matrimonial.modelo.PrimerPilar;
-import com.encuentro.matrimonial.service.IPrimerPilarService;
+import com.encuentro.matrimonial.modelo.SegundoPilar;
+import com.encuentro.matrimonial.service.ISegundoPilarService;
 import com.encuentro.matrimonial.util.ErrorMessage;
 import com.encuentro.matrimonial.util.ErrorMessage2;
 
 import lombok.extern.log4j.Log4j2;
 
 @RestController
-@RequestMapping(ResourceMapping.PRIMER_PILAR)
+@RequestMapping(ResourceMapping.SEGUNDO_PILAR)
 @CrossOrigin(origins = "*", methods = { RequestMethod.GET, RequestMethod.POST,
 		RequestMethod.OPTIONS }, allowedHeaders = "*")
 @Log4j2
-public class PrimerPilarController {
+public class SegundoPilarController {
 
 	@Autowired
-	private IPrimerPilarService pilarService;
+	private ISegundoPilarService pilarService;
 
-	// servicio que trae un fin de semana
+	// servicio que trae un matrimonio servidor del fds
 	@RequestMapping(value = "/get", method = RequestMethod.GET, headers = "Accept=application/json")
 	public ResponseEntity<?> get(@RequestParam Long id) {
 		log.debug("Id:-" + id);
 		try {
-			PrimerPilar pilar = pilarService.findByPrimerPilar(id);
+			SegundoPilar pilar = pilarService.findBySegundoPilar(id);
 			ErrorMessage<?> error = pilar == null ? new ErrorMessage<>(Mensaje.CODE_NOT_FOUND, Mensaje.NOT_FOUND, null)
 					: new ErrorMessage<>(Mensaje.CODE_OK, "Lista de pilares ", pilar);
 			return ResponseEntity.ok().body(error);
@@ -48,12 +48,12 @@ public class PrimerPilarController {
 		}
 	}
 
-	// servicio que trae el listado de fines de semana
+	// servicio que trae el listado de matrimonios servidores del fds
 	@RequestMapping(value = "/getAll", method = RequestMethod.GET, headers = "Accept=application/json")
-	public ResponseEntity<ErrorMessage<List<PrimerPilar>>> getAll() {
+	public ResponseEntity<ErrorMessage<List<SegundoPilar>>> getAll() {
 		try {
-			List<PrimerPilar> listado = pilarService.getAll();
-			ErrorMessage<List<PrimerPilar>> error = listado.isEmpty()
+			List<SegundoPilar> listado = pilarService.getAll();
+			ErrorMessage<List<SegundoPilar>> error = listado.isEmpty()
 					? new ErrorMessage<>(Mensaje.CODE_NOT_FOUND, Mensaje.NOT_FOUND, null)
 					: new ErrorMessage<>(Mensaje.CODE_OK, "Lista de pilares ", listado);
 			return ResponseEntity.ok().body(error);
@@ -64,13 +64,13 @@ public class PrimerPilarController {
 		}
 	}
 
-	// servicio que trae el listado de fines de semana por fecha
+	// servicio que trae el listado de matrimonios servidores del fds por fecha
 	@RequestMapping(value = "/getFilter", method = RequestMethod.GET, headers = "Accept=application/json")
 	public ResponseEntity<?> getFilter(@RequestParam String dateString) {
 		log.debug("Fecha:-" + dateString);
 		try {
-			List<PrimerPilar> listado = pilarService.findByFiltroPrimerPilar(dateString);
-			ErrorMessage<List<PrimerPilar>> error = listado.isEmpty()
+			List<SegundoPilar> listado = pilarService.findByFiltroSegundoPilar(dateString);
+			ErrorMessage<List<SegundoPilar>> error = listado.isEmpty()
 					? new ErrorMessage<>(Mensaje.CODE_NOT_FOUND, Mensaje.NOT_FOUND, null)
 					: new ErrorMessage<>(Mensaje.CODE_OK, "Lista de pilares ", listado);
 			return ResponseEntity.ok().body(error);
@@ -81,9 +81,9 @@ public class PrimerPilarController {
 		}
 	}
 
-	// servicio para crear un fin de semana
+	// servicio para crear un matrimonio servidor para el fds
 	@RequestMapping(value = "/create", method = RequestMethod.POST, headers = "Accept=application/json")
-	public ResponseEntity<?> create(@RequestBody PrimerPilar pilar) {
+	public ResponseEntity<?> create(@RequestBody SegundoPilar pilar) {
 		log.debug("DataBody:-" + pilar);
 		if (pilar != null) {
 			try {
@@ -98,12 +98,12 @@ public class PrimerPilarController {
 		return ResponseEntity.badRequest().body(new ErrorMessage2(1, Mensaje.BAD_REQUEST));
 	}
 
-	// servicio para actualizar un fin de semana
+	// servicio para actualizar un matrimonio servidor del fds
 	@RequestMapping(value = "/update", method = RequestMethod.POST, headers = "Accept=application/json")
-	public ResponseEntity<?> update(@RequestBody PrimerPilar pilar) {
+	public ResponseEntity<?> update(@RequestBody SegundoPilar pilar) {
 		log.info("DataBody:-" + pilar);
 		try {
-			Optional<PrimerPilar> pl = Optional.ofNullable(pilarService.findByPrimerPilar(pilar.getId()));
+			Optional<SegundoPilar> pl = Optional.ofNullable(pilarService.findBySegundoPilar(pilar.getId()));
 			if (!pl.isPresent()) {
 				return ((BodyBuilder) ResponseEntity.notFound())
 						.body(new ErrorMessage2(Mensaje.CODE_NOT_FOUND, Mensaje.NOT_FOUND));
@@ -119,12 +119,12 @@ public class PrimerPilarController {
 		}
 	}
 
-	// servicio para eliminar un fin de semanqa
+	// servicio para eliminar una estructura
 	@RequestMapping(value = "/delete", method = RequestMethod.POST, headers = "Accept=application/json")
 	public ResponseEntity<?> delete(@RequestParam Long id) {
 		log.debug("Id:-" + id);
 		try {
-			Optional<PrimerPilar> pl = Optional.ofNullable(pilarService.findByPrimerPilar(id));
+			Optional<SegundoPilar> pl = Optional.ofNullable(pilarService.findBySegundoPilar(id));
 			if (!pl.isPresent()) {
 				return ((BodyBuilder) ResponseEntity.notFound())
 						.body(new ErrorMessage2(Mensaje.CODE_NOT_FOUND, Mensaje.NOT_FOUND));

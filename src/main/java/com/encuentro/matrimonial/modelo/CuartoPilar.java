@@ -18,8 +18,8 @@ import lombok.Setter;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity(name = "primer_pilar")
-public class PrimerPilar {
+@Entity(name = "cuarto_pilar")
+public class CuartoPilar {
 
 	@Id
 	@Column
@@ -30,18 +30,21 @@ public class PrimerPilar {
 	private Date fechaCreacion;
 
 	@Column
-	private int numFDS;
+	private int numServidoresPostActivos;
 
 	@Column
-	private int numMatrinoniosVivieron;
+	private int numFdsPostPeriodo;
 
 	@Column
-	private int numSacerdotesVivieron;
+	private int numMatrimonioVivieron;
 
 	@Column
-	private int numReligiososVivieron;
+	private int numComunidadApoyo;
 
 	@Column
-	private int numReligiosasVivieron;
+	private int numServiciosComunidad;
+
+	@Column
+	private int numMatrimoiosComunidad;
 
 }
